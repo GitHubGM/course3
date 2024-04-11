@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Course3</title>
+</head>
+<body>
+    <p class="has-line-data" data-line-start="0" data-line-end="28">One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants.<br>
+Data Preprocessing<br>
+library(caret)<br>
+library(rpart)<br>
+library(rpart.plot)<br>
+library(randomForest)<br>
+library(corrplot)<br>
+Download the Data<br>
+trainFile &lt;- “./data/pml-training.csv”<br>
+testFile  &lt;- “./data/pml-testing.csv”<br>
+if (!file.exists(&quot;./data&quot;)) {<br>
+dir.create(&quot;./data&quot;)<br>
+}<br>
+if (!file.exists(trainFile)) {<br>
+download.file(trainUrl, destfile=trainFile, method=“curl”)<br>
+}<br>
+if (!file.exists(testFile)) {<br>
+down<br>
+And read<br>
+trainRaw &lt;- read.csv(&quot;./data/pml-training.csv&quot;)<br>
+testRaw &lt;- read.csv(&quot;./data/pml-testing.csv&quot;)<br>
+dim(trainRaw)<br>
+Then we will slice it<br>
+set.seed(22519)<br>
+inTrain &lt;- createDataPartition(trainCleaned$classe, p=0.70, list=F)<br>
+trainData &lt;- trainCleaned[inTrain, ]<br>
+testData &lt;- trainCleaned[-inTrain, ]<br>
+Data Modeling</p>
+<p class="has-line-data" data-line-start="29" data-line-end="33">We constructed an activity recognition predictive model employing the Random Forest technique due to its inherent capability to identify significant features and its resilience to correlated predictors and outliers. A 5-fold cross-validation approach will be utilized during the implementation of this algorithm.<br>
+controlRf &lt;- trainControl(method=“cv”, 5)<br>
+modelRf &lt;- train(classe ~ ., data=trainData, method=“rf”, trControl=controlRf, ntree=250)<br>
+modelRf</p>
+<h2 class="code-line" data-line-start=33 data-line-end=34 ><a id="Random_Forest_33"></a>Random Forest</h2>
+<h2 class="code-line" data-line-start=34 data-line-end=35 ><a id="_34"></a></h2>
+<h2 class="code-line" data-line-start=35 data-line-end=36 ><a id="13737_samples_35"></a>13737 samples</h2>
+<h2 class="code-line" data-line-start=36 data-line-end=37 ><a id="52_predictor_36"></a>52 predictor</h2>
+<h2 class="code-line" data-line-start=37 data-line-end=38 ><a id="5_classes_A_B_C_D_E_37"></a>5 classes: ‘A’, ‘B’, ‘C’, ‘D’, ‘E’</h2>
+<h2 class="code-line" data-line-start=38 data-line-end=39 ><a id="_38"></a></h2>
+<h2 class="code-line" data-line-start=39 data-line-end=40 ><a id="No_preprocessing_39"></a>No pre-processing</h2>
+<h2 class="code-line" data-line-start=40 data-line-end=41 ><a id="Resampling_CrossValidated_5_fold_40"></a>Resampling: Cross-Validated (5 fold)</h2>
+<h2 class="code-line" data-line-start=41 data-line-end=42 ><a id="_41"></a></h2>
+<h2 class="code-line" data-line-start=42 data-line-end=43 ><a id="Summary_of_sample_sizes_10989_10989_10991_10990_10989_42"></a>Summary of sample sizes: 10989, 10989, 10991, 10990, 10989</h2>
+<h2 class="code-line" data-line-start=43 data-line-end=44 ><a id="_43"></a></h2>
+<h2 class="code-line" data-line-start=44 data-line-end=45 ><a id="Resampling_results_across_tuning_parameters_44"></a>Resampling results across tuning parameters:</h2>
+<h2 class="code-line" data-line-start=45 data-line-end=46 ><a id="_45"></a></h2>
+<h2 class="code-line" data-line-start=46 data-line-end=47 ><a id="mtry__Accuracy___Kappa______Accuracy_SD___Kappa_SD_46"></a>mtry  Accuracy   Kappa      Accuracy SD   Kappa SD</h2>
+<h2 class="code-line" data-line-start=47 data-line-end=48 ><a id="2____09904636__09879361__00006534224__00008263772_47"></a>2    0.9904636  0.9879361  0.0006534224  0.0008263772</h2>
+<h2 class="code-line" data-line-start=48 data-line-end=49 ><a id="27____09913374__09890405__00015731292__00019917940_48"></a>27    0.9913374  0.9890405  0.0015731292  0.0019917940</h2>
+<h2 class="code-line" data-line-start=49 data-line-end=50 ><a id="52____09850766__09811193__00027732182__00035098533_49"></a>52    0.9850766  0.9811193  0.0027732182  0.0035098533</h2>
+<h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="_50"></a></h2>
+<h2 class="code-line" data-line-start=51 data-line-end=52 ><a id="Accuracy_was_used_to_select_the_optimal_model_using__the_largest_value_51"></a>Accuracy was used to select the optimal model using  the largest value.</h2>
+<h2 class="code-line" data-line-start=52 data-line-end=53 ><a id="The_final_value_used_for_the_model_was_mtry__27_52"></a>The final value used for the model was mtry = 27.</h2>
+<ol>
+<li class="has-line-data" data-line-start="53" data-line-end="54">Correlation Matrix Visualization</li>
+</ol>
+<p class="has-line-data" data-line-start="56" data-line-end="57">estimated accuracy of the model is 99.30% and the estimated out-of-sample error is 0.70%.</p>
+</body>
+</html>
